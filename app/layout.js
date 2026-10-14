@@ -5,10 +5,10 @@ import "./globals.css";
 const grotesk = Space_Grotesk({ variable: "--font-grotesk", subsets: ["latin"], weight: ["500", "600", "700"] });
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
 
-const __jsonld = {"@context":"https://schema.org","@type":"Organization","name":"Nimbus","description":"VPS dan Object Storage dari tiga region di Indonesia","url":"https://landing-nimbus.vercel.app"};
+const __jsonld = {"@context":"https://schema.org","@type":"Organization","name":"Nimbus","description":"VPS dan Object Storage dari tiga region di Indonesia","url":"https://landing-nimbus.pintuweb.id"};
 
 export const metadata = {
-  metadataBase: new URL("https://landing-nimbus.vercel.app"),
+  metadataBase: new URL("https://landing-nimbus.pintuweb.id"),
   title: { default: "Nimbus — Server di Indonesia, Status yang Terbuka", template: "%s — Nimbus" },
   description: "Nimbus: VPS dan Object Storage dari Jakarta, Batam, dan Surabaya, ditagih per jam. Uptime 90 hari, laporan insiden terbuka, dan kalkulator harga.",
   applicationName: "Nimbus Cloud",
@@ -16,11 +16,11 @@ export const metadata = {
   authors: [{ name: "Nimbus Cloud" }],
   creator: "Nimbus Cloud",
   publisher: "Nimbus Cloud",
-  alternates: { canonical: "https://landing-nimbus.vercel.app" },
+  alternates: { canonical: "https://landing-nimbus.pintuweb.id" },
   openGraph: {
     type: "website",
     locale: "id_ID",
-    url: "https://landing-nimbus.vercel.app",
+    url: "https://landing-nimbus.pintuweb.id",
     siteName: "Nimbus Cloud",
     title: "Nimbus — Server di Indonesia, Status yang Terbuka",
     description: "Nimbus: VPS dan Object Storage dari Jakarta, Batam, dan Surabaya, ditagih per jam. Uptime 90 hari, laporan insiden terbuka, dan kalkulator harga.",

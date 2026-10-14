@@ -2,7 +2,7 @@
 
 Nimbus: VPS dan Object Storage dari Jakarta, Batam, dan Surabaya, ditagih per jam. Uptime 90 hari, laporan insiden terbuka, dan kalkulator harga.
 
-**Demo live:** https://landing-nimbus.vercel.app
+**Demo live:** https://landing-nimbus.pintuweb.id
 
 ![Tangkapan layar Nimbus Cloud](public/og.jpg)
 
