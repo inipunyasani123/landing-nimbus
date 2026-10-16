@@ -44,3 +44,19 @@ export function Legenda() {
     </ul>
   );
 }
+
+/* Baris keterangan "A · B · C": tiap bagian tidak terpotong di tengah saat
+   baris membungkus (misalnya kode region btm-1 di layar ponsel). */
+export function Rangkai({ isi, className = '' }) {
+  const daftar = isi.filter(Boolean);
+  return (
+    <span className={`flex flex-wrap gap-x-2 gap-y-1 ${className}`}>
+      {daftar.map((x, i) => (
+        <span key={i} className="whitespace-nowrap">
+          {x}
+          {i < daftar.length - 1 && <span aria-hidden="true" className="ml-2">·</span>}
+        </span>
+      ))}
+    </span>
+  );
+}

@@ -2,6 +2,9 @@ import { Space_Grotesk, Inter } from "next/font/google";
 import { SiteFooter, SiteHeader } from "./components/SiteChrome";
 import "./globals.css";
 
+// Data contoh di lib/nimbus.js dihitung dari tanggal hari ini; bangun ulang sekali sehari.
+export const revalidate = 86400;
+
 const grotesk = Space_Grotesk({ variable: "--font-grotesk", subsets: ["latin"], weight: ["500", "600", "700"] });
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
 

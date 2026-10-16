@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { FAQ as DAFTAR, INSIDEN, JENIS, KOMPONEN, PAKET, REGION, SLA, komponenByKode, persen, regionByKode, rp, tgl, uptime } from '@/lib/nimbus';
-import { BilahUptime, SkalaHari } from './Status';
+import { BilahUptime, Rangkai, SkalaHari } from './Status';
 
 export function Hero() {
   return (
@@ -31,7 +31,7 @@ export function Hero() {
             ))}
           </ul>
           <SkalaHari hari={30} />
-          <Link href="/status" className="status-label mt-6 inline-block border-b border-frost/40 pb-1 text-frost hover:border-frost">Status lengkap & riwayat</Link>
+          <Link href="/status" className="status-label mt-5 inline-block border-b border-frost/40 pt-2 pb-1.5 text-frost hover:border-frost">Status lengkap & riwayat</Link>
         </div>
       </div>
     </section>
@@ -46,7 +46,7 @@ export function Layanan() {
         <h2 className="mt-4 max-w-2xl text-[2.2rem] leading-[1.06] font-bold text-vapor md:text-5xl">Lima komponen, semuanya di halaman status</h2>
         <ul className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-vapor/10 bg-vapor/10 md:grid-cols-2 lg:grid-cols-3">
           {KOMPONEN.map((k) => (
-            <li key={k.kode} className="bg-white p-7">
+            <li key={k.kode} className="bg-white p-6 sm:p-7">
               <p className="flex items-center justify-between gap-4">
                 <span className="text-xl font-bold text-vapor">{k.nama}</span>
                 <span className="status-label text-uptime tabular-nums">{persen(uptime(k.kode))}</span>
@@ -54,7 +54,7 @@ export function Layanan() {
               <p className="mt-3 leading-relaxed">{k.ket}</p>
             </li>
           ))}
-          <li className="bg-frost p-7">
+          <li className="bg-frost p-6 sm:p-7">
             <p className="text-xl font-bold text-vapor">Tiga region</p>
             <ul className="mt-3 space-y-2">
               {REGION.map((r) => <li key={r.kode}><span className="font-mono text-sm font-semibold text-vapor">{r.kode}</span> · {r.kota}</li>)}
@@ -75,9 +75,22 @@ export function HargaRingkas() {
             <p className="status-label text-uptime">Harga VPS</p>
             <h2 className="mt-4 max-w-2xl text-[2.2rem] leading-[1.06] font-bold text-vapor md:text-5xl">Per jam, dengan batas atas bulanan</h2>
           </div>
-          <Link href="/harga" className="status-label shrink-0 border-b-2 border-vapor pb-1 text-vapor">Buka kalkulator</Link>
+          <Link href="/harga" className="status-label shrink-0 self-start border-b-2 border-vapor py-1 text-vapor hover:border-uptime hover:text-uptime sm:self-auto">Buka kalkulator</Link>
         </div>
-        <div className="mt-10 overflow-x-auto rounded-2xl border border-vapor/10 bg-white" tabIndex={0} role="region" aria-label="Tabel harga paket VPS">
+        {/* Ponsel: satu kartu per paket, tanpa tabel yang harus digeser. */}
+        <ul className="mt-8 divide-y divide-vapor/10 rounded-2xl border border-vapor/10 bg-white sm:hidden">
+          {PAKET.map((p) => (
+            <li key={p.slug} className="px-5 py-4">
+              <p className="flex items-baseline justify-between gap-4">
+                <span className="font-bold text-vapor">{p.nama}</span>
+                <span className="font-bold text-vapor tabular-nums">{rp(p.harga)}<span className="text-sm font-normal text-frost-dim">/bln</span></span>
+              </p>
+              <Rangkai className="mt-1 text-sm tabular-nums" isi={[`${p.vcpu} vCPU`, `${p.ram} GB RAM`, `${p.disk} GB NVMe`, `${p.kuota} TB transfer`]} />
+              <p className="text-sm text-frost-dim">{p.cocok}</p>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-10 hidden overflow-x-auto rounded-2xl border border-vapor/10 bg-white sm:block" tabIndex={0} role="region" aria-label="Tabel harga paket VPS">
           <table className="w-full min-w-[40rem] border-collapse text-left">
             <caption className="sr-only">Paket VPS Nimbus dan harganya</caption>
             <thead>
@@ -89,11 +102,11 @@ export function HargaRingkas() {
               {PAKET.map((p) => (
                 <tr key={p.slug} className="border-b border-vapor/10 last:border-0">
                   <th scope="row" className="px-5 py-4 font-bold text-vapor">{p.nama}<span className="block text-sm font-normal text-frost-dim">{p.cocok}</span></th>
-                  <td className="px-5 py-4 tabular-nums">{p.vcpu}</td>
-                  <td className="px-5 py-4 tabular-nums">{p.ram} GB</td>
-                  <td className="px-5 py-4 tabular-nums">{p.disk} GB</td>
-                  <td className="px-5 py-4 tabular-nums">{p.kuota} TB</td>
-                  <td className="px-5 py-4 font-bold text-vapor tabular-nums">{rp(p.harga)}</td>
+                  <td className="px-5 py-4 whitespace-nowrap tabular-nums">{p.vcpu}</td>
+                  <td className="px-5 py-4 whitespace-nowrap tabular-nums">{p.ram} GB</td>
+                  <td className="px-5 py-4 whitespace-nowrap tabular-nums">{p.disk} GB</td>
+                  <td className="px-5 py-4 whitespace-nowrap tabular-nums">{p.kuota} TB</td>
+                  <td className="px-5 py-4 font-bold whitespace-nowrap text-vapor tabular-nums">{rp(p.harga)}</td>
                 </tr>
               ))}
             </tbody>
@@ -119,9 +132,9 @@ export function InsidenTerbaru() {
           {daftar.map((i) => (
             <li key={i.slug}>
               <Link href={`/insiden/${i.slug}`} className="block rounded-2xl border border-frost/15 p-6 hover:border-frost/40">
-                <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                  <span aria-hidden="true" className={`h-2.5 w-2.5 rounded-full ${JENIS[i.jenis].warna}`} />
-                  <span className="status-label text-frost/75">{JENIS[i.jenis].nama} · {tgl(i.tanggal)} · {i.menit} menit · {i.region === 'semua' ? 'semua region' : regionByKode(i.region).kode}</span>
+                <span className="flex items-start gap-3">
+                  <span aria-hidden="true" className={`mt-[3px] h-2.5 w-2.5 shrink-0 rounded-full ${JENIS[i.jenis].warna}`} />
+                  <Rangkai className="status-label text-frost/75" isi={[JENIS[i.jenis].nama, tgl(i.tanggal), `${i.menit} menit`, i.region === 'semua' ? 'semua region' : regionByKode(i.region).kode]} />
                 </span>
                 <span className="mt-3 block text-xl font-bold text-frost">{i.judul}</span>
                 <span className="mt-2 block text-sm leading-relaxed text-frost/75">{komponenByKode(i.komponen).nama} — {i.ringkas}</span>

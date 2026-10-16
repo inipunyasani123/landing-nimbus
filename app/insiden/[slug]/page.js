@@ -11,7 +11,7 @@ export async function generateMetadata({ params }) {
   const i = insidenBySlug(slug);
   if (!i) return {};
   return {
-    title: `Laporan: ${i.judul}`,
+    title: i.judulPendek ?? i.judul,
     description: `${tgl(i.tanggal)} · ${i.menit} menit · ${i.ringkas}`,
     alternates: { canonical: `${SITE}/insiden/${i.slug}` },
   };
@@ -26,10 +26,10 @@ export default async function Insiden({ params }) {
   return (
     <main className="px-6 pt-28 pb-24">
       <article className="mx-auto max-w-3xl">
-        <nav aria-label="Remah roti" className="status-label flex flex-wrap gap-2 text-frost-dim">
-          <Link href="/status" className="text-uptime hover:text-vapor">Status</Link>
+        <nav aria-label="Remah roti" className="status-label flex flex-wrap items-center gap-2 text-frost-dim">
+          <Link href="/status" className="py-1.5 text-uptime hover:text-vapor">Status</Link>
           <span aria-hidden="true">/</span>
-          <Link href="/status#riwayat" className="text-uptime hover:text-vapor">Riwayat insiden</Link>
+          <Link href="/status#riwayat" className="py-1.5 text-uptime hover:text-vapor">Riwayat insiden</Link>
         </nav>
         <p className="mt-8 flex flex-wrap items-center gap-2.5">
           <span aria-hidden="true" className={`h-3 w-3 rounded-full ${JENIS[i.jenis].warna}`} />

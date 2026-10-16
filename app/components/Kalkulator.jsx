@@ -60,6 +60,11 @@ export default function Kalkulator() {
             <span id="kuota" className="mt-1 block text-xs text-frost-dim">Kuota gratis: {kuota} TB ({p.kuota} TB × {n} server)</span>
           </div>
         </div>
+        {/* Ponsel: total ikut terlihat selama mengisi formulir (rincian lengkap di panel bawah). */}
+        <div aria-hidden="true" className="sticky bottom-3 z-10 flex items-center justify-between gap-4 rounded-xl bg-vapor px-4 py-3 text-frost shadow-[0_12px_30px_-12px_rgb(14_17_22/0.6)] lg:hidden">
+          <span className="status-label text-frost/75">Perkiraan / bulan</span>
+          <span className="font-[family-name:var(--font-grotesk)] text-xl font-bold tabular-nums">{rp(total)}</span>
+        </div>
       </form>
 
       <div className="self-start rounded-2xl bg-vapor p-6 text-frost sm:p-8 lg:sticky lg:top-24">

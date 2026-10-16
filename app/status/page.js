@@ -1,10 +1,10 @@
 import Link from 'next/link';
-import { INSIDEN, JENIS, KOMPONEN, PERAWATAN, REGION, SITE, komponenByKode, persen, regionByKode, tgl, uptime } from '@/lib/nimbus';
-import { BilahUptime, Legenda, SkalaHari } from '../components/Status';
+import { AKHIR, INSIDEN, JENIS, KOMPONEN, PERAWATAN, REGION, SITE, komponenByKode, persen, regionByKode, tgl, uptime } from '@/lib/nimbus';
+import { BilahUptime, Legenda, Rangkai, SkalaHari } from '../components/Status';
 
 export const metadata = {
   title: 'Status & Uptime 90 Hari',
-  description: 'Status terkini dan uptime 90 hari tiap komponen Nimbus — Compute, Object Storage, Load Balancer, DNS, dan Dasbor — beserta perawatan terjadwal dan riwayat insiden.',
+  description: 'Uptime 90 hari tiap komponen Nimbus: Compute, Object Storage, Load Balancer, DNS, dan Dasbor, plus perawatan terjadwal dan riwayat insiden.',
   alternates: { canonical: `${SITE}/status` },
 };
 
@@ -15,7 +15,7 @@ export default function Status() {
         <div className="flex flex-col gap-6 rounded-2xl bg-uptime p-7 text-white sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="text-3xl font-bold md:text-4xl">Semua sistem normal</h1>
-            <p className="mt-1 text-white/90">Diperbarui 30 Sep 2026, 23.59 WIB · contoh purwarupa</p>
+            <p className="mt-1 text-white/90">Data hingga {tgl(AKHIR, { day: 'numeric', month: 'long', year: 'numeric' })}, 23.59 WIB · contoh purwarupa</p>
           </div>
           <p className="status-label text-white/90">{REGION.map((r) => r.kode).join(' · ')}</p>
         </div>
@@ -54,7 +54,7 @@ export default function Status() {
             {INSIDEN.map((i) => (
               <li key={i.slug} className="relative pb-8 pl-8 last:pb-0">
                 <span aria-hidden="true" className={`absolute top-1.5 -left-[7px] h-3 w-3 rounded-full ring-4 ring-frost ${JENIS[i.jenis].warna}`} />
-                <p className="status-label text-frost-dim">{tgl(i.tanggal, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })} · {i.mulai} WIB · {i.menit} menit</p>
+                <Rangkai className="status-label text-frost-dim" isi={[tgl(i.tanggal, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }), `${i.mulai} WIB`, `${i.menit} menit`]} />
                 <h3 className="mt-2 text-xl font-bold text-vapor"><Link href={`/insiden/${i.slug}`} className="hover:text-uptime">{i.judul}</Link></h3>
                 <p className="mt-1 text-sm"><span className="font-semibold text-vapor">{JENIS[i.jenis].nama}</span> · {komponenByKode(i.komponen).nama} · {i.region === 'semua' ? 'semua region' : regionByKode(i.region).kota}</p>
                 <p className="mt-2 max-w-2xl leading-relaxed">{i.ringkas}</p>

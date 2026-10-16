@@ -1,5 +1,7 @@
 import { INSIDEN, SITE } from "@/lib/nimbus";
 
+export const revalidate = 86400;
+
 export default function sitemap() {
   const now = new Date();
   return [
